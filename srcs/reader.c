@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:17:54 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/19 21:16:14 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/19 21:31:02 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void		get_matrix_size(t_matrix *matrix, int fd)
 	char	*line;
 	int		i;
 
-	if (!get_next_line(STDIN_FILENO, &line))
+	i = 0;
+	if (!get_next_line(fd, &line))
 		exit(1);
 	while (!ft_isdigit(*(line + i)))
 		i++;
