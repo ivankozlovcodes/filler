@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/19 21:05:58 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/19 21:30:33 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ struct					s_game
 typedef struct s_game	t_game;
 
 void					get_data(t_game *game);
+int						gameon(t_game *game);
 
 #endif
