@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:47:36 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/19 21:45:29 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:03:05 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	whoami(t_game *game)
 	char	*line;
 	char	*head;
 	
-	if (!get_next_line(STDERR_FILENO, &line))
+	if (!get_next_line(g_fd, &line))
 		exit(0);
 	head = line;
 	line = ft_strchr(line, 'p');
@@ -51,6 +51,7 @@ int		main(void)
 {
 	t_game	game;
 	
+	g_fd = DEBUG == 1 ? open('test') : 0;
 	whoami(&game);
 	gameon(&game);
 	print_game(game);
