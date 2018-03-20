@@ -1,0 +1,6 @@
+# all hidden files
+# but git ignore and git module
+.*
+!.gitignore
+!.gitmodule
+resources/
