@@ -16,15 +16,18 @@
 void	whoami(t_game *game)
 {
 	char	*line;
+	char	*head;
 	
 	if (!get_next_line(STDERR_FILENO, &line))
 		exit(0);
+	head = line;
 	line = ft_strchr(line, 'p');
 	if (*(line + 1) == '1')
 		game->player = 'o';
 	else
 		game->player = 'x';
-	free(line);
+	free(head);
+}
 }
 
 int		main(void)
