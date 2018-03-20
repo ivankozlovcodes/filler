@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:17:54 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/19 21:10:04 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/19 21:16:14 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ static void		get_matrix_size(t_matrix *matrix, int fd)
 	free(line);
 }
 
-static void		fill_matrix(t_matrix *matrix, int fd)
+static void		fill_matrix(t_matrix *matrix, int fd, int skip)
 {
+	char	*line;
 	int		i;
 
 	i = -1;
 	while (++i < matrix->rows)
-		if (!get_next_line(fd, matrix->m + i))
+	{
+		if (!get_next_line(fd, &line))
 			exit(1);
+		matrix->m[i] = ft_strdup(line + skip);
+		free(line);
+	}
 }
 
 static void		get_map(t_game *game)
@@ -49,14 +54,14 @@ static void		get_map(t_game *game)
 	get_next_line(STDIN_FILENO, &line);
 	free(line);
 	game->map.m = malloc(sizeof(char *) * game->rows);
-	fill_matrix(&game->map, STDIN_FILENO);
+	fill_matrix(&game->map, STDIN_FILENO, 4);
 }
 
 static void		get_piece(t_game *game)
 {
 	get_matrix_size(&game->piece, STDIN_FILENO);
 	game->piece.m = malloc(sizeof(char *) * game->piece.rows);
-	fill_matrix(&game->piece, STDIN_FILENO);
+	fill_matrix(&game->piece, STDIN_FILENO, 0);
 }
 
 void	get_data(t_game *game)
