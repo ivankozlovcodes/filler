@@ -5,72 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/19 18:47:36 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/20 19:44:48 by ikozlov          ###   ########.fr       */
+/*   Created: 2018/03/20 21:56:46 by ikozlov           #+#    #+#             */
+/*   Updated: 2018/03/21 13:55:04 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-#include "get_next_line.h"
 #include "ft_printf.h"
-#include <fcntl.h>
+#include "get_next_line.h"
+#include <stdio.h>
 
-void	whoami(t_game *game, int fd)
+void	whoami(t_game *game)
 {
 	char	*line;
-	char	*head;
-	
-	if (!get_next_line(fd, &line))
-	{
-		ft_log("Read line: %s\n", line);
-		die(0);
-	}
-	head = line;
-	line = ft_strchr(line, 'p');
-	if (*(line + 1) == '1')
+	int		i;
+
+	if (!get_next_line(STDIN_FILENO, &line))
+		die("whoami");
+	i = 0;
+	while (line[i] && line[i] != 'p')
+		i++;
+	if (line[i + 1] == '1')
 		game->player = 'o';
 	else
 		game->player = 'x';
-	free(head);
+	ft_strdel(&line);
 }
 
-void	print_matrix(t_matrix m)
+// void	log_matrix(t_matrix m)
+// {
+// 	int		i;
+
+// 	i = -1;
+// 	ft_log("Size: r%d c%d\n", m.rows, m.cols);
+// 	while (++i < m.rows)
+// 		ft_log("%s\n", m.m[i]);
+// }
+
+void	log_matrix(char **m)
 {
 	int		i;
 
 	i = -1;
-	while (++i < m.rows)
-		ft_printf("%s\n", m.m[i]);
+	while (m[++i])
+		ft_log("%s\n", m[i]);
 }
 
-void	print_game(t_game game)
+void	die(char *msg)
 {
-	ft_printf("Map:\n");
-	print_matrix(game.map);
-	ft_printf("Piece:\n");
-	print_matrix(game.piece);
+	ft_printf("Died in %s\n", msg);
+	exit(0);
 }
 
-void	die(int fd)
+int		main()
 {
-	ft_printf("Dying... fd: %d\n", fd);
-	if (DEBUG == 1)
-		close(fd);
-	exit(fd);
-}
+	t_game	*game;
 
-int		main(void)
-{
-	t_game	game;
-	int		fd;
-	
-	fd = DEBUG == 1 ? open("test2", O_RDONLY) : 0;
-	whoami(&game, fd);
-	ft_log("Finished init players\n");
-	gameon(&game, fd);
-	print_game(game);
-	// while (gameon(&game))
-	// 	continue ;
-	close(fd);
+	game = malloc(sizeof(t_game));
+	ft_log("*********************START************************\n");
+	whoami(game);
+	ft_log("I am %c or %c\n", game->player, game->player - 32);
+	while (1)
+	{
+		get_data(game);
+		ft_log("Got data\n");
+		log_matrix(game->map);
+		log_matrix(game->piece);
+		// int	i;
+		// int	j;
+		int	r,c;
+		r = 8; c = 2;
+		// i = -1;
+		// while (++i < game.map.rows)
+		// {
+		// 	j = -1;
+		// 	while (++j < game.map.cols)
+		// 	{
+		// 		if (game.map.m[i][j] == game.player
+		// 			|| game.map.m[i][j] == game.player - 32)
+		// 		{
+		// 			ft_log("Checking %c at r:%d c:%d\n", game.map.m[i][j], i, j);
+		// 			ft_log("Found match\n");
+		// 			r = i;
+		// 			c = j;
+		// 		}
+		// 		// ft_log("Sending1 %d %d\n", i, j);
+		// 		// printf("%d %d\n", i, j);
+		// 	}
+		// }
+		ft_log("Sending %d %d\n", r, c);
+		printf("%d %d\n", r, c);
+	}
 	return (0);
 }
