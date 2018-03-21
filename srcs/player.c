@@ -6,19 +6,29 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/20 14:44:08 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/20 20:00:46 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+#include "ft_printf.h"
+#include <stdio.h>
 #include <limits.h>
+
+int		ft_distance(int x1, int y1, int x2, int y2)
+{
+	int	a = ft_pow(x2 -x1, 2);
+	int b = ft_pow(y2 - y1, 2);
+	int c = ft_sqrt(a + b);
+	return (c);
+}
 
 t_point	*intialize_critical_points(int width, int height)
 {
 	t_point		*res;
 	int			i;
 
-	res = malloc(siezof(s_point) * C_POINTS);
+	res = malloc(sizeof(t_point) * C_POINTS);
 	res[0].x = width / 2;
 	res[0].y = height / 2;
 	res[1].x = 0;
@@ -48,7 +58,7 @@ void	set_point_owner(t_point *cp, int x, int y, char p)
 	player = ft_tolower(p) == 'x';
 	while (++i < C_POINTS)
 	{
-		d = DISTANCE(cp[i].x, cp[i].y, x, y);
+		d = ft_distance(cp[i].x, cp[i].y, x, y);
 		if (cp[i].distances[player] > d)
 		{
 			cp[i].distances[player] = d;
@@ -77,13 +87,17 @@ t_point	*get_critical_points(t_game game)
 	return (points);
 }
 
-int		gameon(t_game *game)
+int		gameon(t_game *game, int fd)
 {
 	t_point	*critical;
 
-	get_data(game);
+	get_data(game, fd);
 	// think
 	//get critical point
+	ft_printf("Here\n");
+	printf("here\n");
+	if (fd != 0)
+		close(fd);
 	critical = get_critical_points(*game);
 	// set main critical point
 	// build fitness matrix
