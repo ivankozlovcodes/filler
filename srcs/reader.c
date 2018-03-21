@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:46:10 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/21 13:55:50 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:36:03 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	get_map_size(t_game *game)
 	int		i;
 
 	i = 0;
+	ft_log("here\n");
 	if (!get_next_line(STDIN_FILENO, &line))
 		exit(0);
 	while (!ft_isdigit(line[i]))

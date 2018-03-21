@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 21:56:46 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/21 13:55:04 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:49:01 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,11 @@ int		main()
 		// 	}
 		// }
 		ft_log("Sending %d %d\n", r, c);
-		printf("%d %d\n", r, c);
+		// printf("%d %d", r, c);
+		ft_putnbr(r);
+		write(1, " ", 1);
+		ft_putnbr(c);
+		write(1, "\n", 1);
 	}
 	return (0);
 }
