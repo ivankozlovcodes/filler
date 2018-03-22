@@ -9,3 +9,4 @@
 [submodule "get_next_line"]
 	path = get_next_line
 	url = https://github.com/IvanKozlov95/get_next_line
+	ignore = dirty
