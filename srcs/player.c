@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:32:35 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 15:37:19 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	send_move(int row, int column)
 int		**build_fitness_matrix(t_game *game, t_point p)
 {
 	int		**res;
+	char	c;
 	int		i;
 	int		j;
 
@@ -35,7 +36,15 @@ int		**build_fitness_matrix(t_game *game, t_point p)
 		j = -1;
 		res[i] = malloc(sizeof(int) * game->map.cols);
 		while (++j < game->map.cols)
-			res[i][j] = 100 - ABS(p.x - j) - ABS(p.y - i);
+		{
+			c = ft_tolower(game->map.m[i][j]);
+			if (c == game->player)
+				res[i][j] = 0;
+			else if (c == game->opponent)
+				res[i][j] = -FITNESS_MAX;
+			else
+				res[i][j] = FITNESS_MAX - ABS(p.x - j) - ABS(p.y - i);
+		}
 	}
 	return (res);
 }

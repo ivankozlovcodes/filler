@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:09:22 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 15:36:30 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define PLAYER1 'o'
 # define PLAYER2 'x'
 # define C_POINTS 5
+# define FITNESS_MAX 100
 
 # define DEBUG 1
 
