@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/22 19:46:13 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/22 21:35:41 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int						gameon(t_game *game);
 void					die(char *msg);
 
 void					ft_log(char *msg, ...);
+void					log_matrix(t_matrix m);
 
 #endif
