@@ -84,10 +84,8 @@ int		*get_move(t_game *game, int **fitness)
 	int		*res;
 
 	i = -1;
-	res = malloc(sizeof(int) * 2);
+	res = (int *)ft_memalloc(2);
 	sum = 0;
-	res[0] = 0;
-	res[1] = 0;
 	while (++i < game->map.rows)
 	{
 		j = -1;
