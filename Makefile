@@ -6,7 +6,7 @@
 #    By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 15:52:16 by ikozlov           #+#    #+#              #
-#    Updated: 2018/03/22 00:03:46 by ikozlov          ###   ########.fr        #
+#    Updated: 2018/03/22 19:33:22 by ikozlov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ $(NAME): $(OBJ)
 	@$(MAKE) -C $(PRINTF_DIR)
 	@$(MAKE) -C $(GNL_DIR)
 	@gcc $(OBJ) $(GNL_DIR)/get_next_line.o -o $(NAME) -L $(LIBFT_DIR) -l $(LIBFT) -L $(PRINTF_DIR) -l $(PRINTF)
+	@echo "\`filler\` Player created"
 
 $(OBJ): $(SRC)
 	@mkdir -p $(OBJ_DIR)
@@ -54,7 +55,7 @@ clean:
 	@make -C $(GNL_DIR) clean
 	@make -C $(PRINTF_DIR) clean
 	@/bin/rm -rf $(OBJ_DIR)
-	@echo "[INFO] Object folder removed"
+	@echo "\`filler\` [INFO] Object folder removed"
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
@@ -62,7 +63,7 @@ fclean: clean
 	@make -C $(PRINTF_DIR) fclean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(TEST)
-	@echo "[INFO] Executable removed"
+	@echo "\`filler\` [INFO] Executable removed"
 
 re: fclean all
 
