@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/21 13:47:24 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/22 19:46:13 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,21 @@ struct					s_matrix
 };
 typedef struct s_matrix	t_matrix;
 
+struct					s_piece
+{
+	t_matrix			field;
+	int					weight;
+};
+typedef struct s_piece	t_piece;
+
 struct					s_game
 {
 	int					rows;
 	int					cols;
 	char				player;
 	char				opponent;
-	// t_matrix			piece;
-	// t_matrix			map;
-	char				**map;
-	char				**piece;
+	t_piece				piece;
+	t_matrix			map;
 };
 typedef struct s_game	t_game;
 
