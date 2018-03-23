@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 16:27:45 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:37:04 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		**build_fitness_matrix(t_game *game, t_point p)
 		res[i] = malloc(sizeof(int) * game->map.cols);
 		while (++j < game->map.cols)
 		{
-			c = ft_tolower(game->map.m[i][j]);
+			c = ft_tolower(((int *)game->map.m[i])[j]);
 			if (c == game->player)
 				res[i][j] = 0;
 			else if (c == game->opponent)
@@ -63,7 +63,7 @@ int		get_sum(int **fitness, t_piece p, int row, int col)
 	{
 		j = -1;
 		while (++j < p.field.cols)
-			if (p.field.m[i][j] == '*')
+			if (((char **)p.field.m)[i][j] == '*')
 			{
 				if (fitness[row + i][col + j] == 0)
 					hit_self++;

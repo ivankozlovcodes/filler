@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 14:55:47 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 16:04:16 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:39:14 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,19 @@ t_point	get_main_critical_point(t_point *p)
 t_point	*get_critical_points(t_game game)
 {
 	t_point		*points;
-	int			*distance;
+	char		**map;
 	int			i;
 	int			j;
 
-	points = intialize_critical_points(game.map.cols, game.map.rows);
-	distance = malloc(sizeof(int) * C_POINTS);
 	i = -1;
+	map = (char **)game.map.m;
+	points = intialize_critical_points(game.map.cols, game.map.rows);
 	while (++i < game.map.rows)
 	{
 		j = -1;
 		while (++j < game.map.cols)
-			if (ft_strchr("xo", ft_tolower(game.map.m[i][j])))
-				set_distances(points, j, i, game.map.m[i][j]);
+			if (ft_strchr("xo", ft_tolower(map[i][j])))
+				set_distances(points, j, i, map[i][j]);
 	}
 	return (points);
 }

@@ -24,7 +24,7 @@
 
 struct					s_matrix
 {
-	char				**m;
+	void				**m;
 	int					rows;
 	int					cols;
 };
