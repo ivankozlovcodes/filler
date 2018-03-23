@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:10:52 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 15:32:35 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,47 @@ int		**build_fitness_matrix(t_game *game, t_point p)
 	return (res);
 }
 
+int		get_sum(int **fitness, t_piece p, int row, int col)
+{
+	fitness++;
+	p.field.cols++;
+	row += col;
+	return (0);
+}
+
+int		*get_move(t_game *game, int **fitness)
+{
+	int		i;
+	int		j;
+	int		sum;
+	int		tmp;
+	int		*res;
+
+	i = -1;
+	res = malloc(sizeof(int) * 2);
+	sum = 0;
+	res[0] = 0;
+	res[1] = 0;
+	while (++i < game->rows)
+	{
+		j = -1;
+		while (++j < game->cols)
+			if ((tmp = get_sum(fitness, game->piece, i, j) > sum))
+			{
+				res[0] = i;
+				res[1] = j;
+				sum = tmp;
+			}
+	}
+	return (res);
+}
+
 int		gameon(t_game *game)
 {
 	t_point	*p;
 	t_point	critical;
 	int		**fitness;
+	int		*move;
 
 	while (1)
 	{
@@ -57,8 +93,10 @@ int		gameon(t_game *game)
 		critical = get_main_critical_point(p);
 		fitness = build_fitness_matrix(game, critical);
 		log_fitness_matrix(fitness, game->map.rows, game->map.cols);
-		// build fitness matrix
-		// make a move
+		move = get_move(game, fitness);
+		send_move(move[0], move[1]);
+		// free(all fitness)
+		free(move);
 		free(p);
 	}
 	return (0);
