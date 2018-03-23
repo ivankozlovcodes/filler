@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:36:30 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:40:44 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_piece	t_piece;
 
 struct					s_game
 {
-	int					rows;
-	int					cols;
 	char				player;
 	char				opponent;
 	t_piece				piece;
