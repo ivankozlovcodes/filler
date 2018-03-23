@@ -32,16 +32,6 @@ void	whoami(t_game *game)
 	ft_strdel(&line);
 }
 
-void	log_matrix(t_matrix m)
-{
-	int		i;
-
-	i = -1;
-	ft_log("Size: r%d c%d\n", m.rows, m.cols);
-	while (++i < m.rows)
-		ft_log("%s\n", m.m[i]);
-}
-
 void	die(char *msg)
 {
 	ft_printf("Died in %s\n", msg);
