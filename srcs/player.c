@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:37:19 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:27:45 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,28 @@ int		**build_fitness_matrix(t_game *game, t_point p)
 
 int		get_sum(int **fitness, t_piece p, int row, int col)
 {
-	fitness++;
-	p.field.cols++;
-	row += col;
-	return (0);
+	int		i;
+	int		j;
+	int		hit_self;
+	int		sum;
+
+	i = -1;
+	sum = 0;
+	hit_self = 0;
+	while (++i < p.field.rows)
+	{
+		j = -1;
+		while (++j < p.field.cols)
+			if (p.field.m[i][j] == '*')
+			{
+				if (fitness[row + i][col + j] == 0)
+					hit_self++;
+				sum += fitness[row + i][col + j];
+			}
+	}
+	if (hit_self != 1)
+		sum = 0;
+	return (sum);
 }
 
 int		*get_move(t_game *game, int **fitness)
@@ -70,16 +88,21 @@ int		*get_move(t_game *game, int **fitness)
 	sum = 0;
 	res[0] = 0;
 	res[1] = 0;
-	while (++i < game->rows)
+	while (++i < game->map.rows)
 	{
 		j = -1;
-		while (++j < game->cols)
-			if ((tmp = get_sum(fitness, game->piece, i, j) > sum))
+		while (++j < game->map.cols)
+		{
+			tmp = get_sum(fitness, game->piece, i, j);
+			ft_log("%d %d sum %d\n", i, j, tmp);
+			if (tmp > sum)
 			{
+				ft_log("Here\n");
 				res[0] = i;
 				res[1] = j;
 				sum = tmp;
 			}
+	}
 	}
 	return (res);
 }
@@ -98,7 +121,7 @@ int		gameon(t_game *game)
 		log_matrix(game->map);
 		log_matrix(game->piece.field);
 		p = get_critical_points(*game);
-		log_critical_points(p);
+		// log_critical_points(p);
 		critical = get_main_critical_point(p);
 		fitness = build_fitness_matrix(game, critical);
 		log_fitness_matrix(fitness, game->map.rows, game->map.cols);
