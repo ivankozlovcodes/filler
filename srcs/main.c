@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 21:56:46 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/22 19:53:36 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/22 21:37:37 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	die(char *msg)
 	exit(0);
 }
 
-int		main()
+int		main(void)
 {
 	t_game	*game;
 
@@ -46,40 +46,7 @@ int		main()
 	ft_log("*********************START************************\n");
 	whoami(game);
 	ft_log("I am %c or %c\n", game->player, game->player - 32);
-	while (1)
-	{
-		get_data(game);
-		ft_log("Got data\n");
-		log_matrix(game->map);
-		log_matrix(game->piece.field);
-		// int	i;
-		// int	j;
-		int	r,c;
-		r = 8; c = 2;
-		// i = -1;
-		// while (++i < game.map.rows)
-		// {
-		// 	j = -1;
-		// 	while (++j < game.map.cols)
-		// 	{
-		// 		if (game.map.m[i][j] == game.player
-		// 			|| game.map.m[i][j] == game.player - 32)
-		// 		{
-		// 			ft_log("Checking %c at r:%d c:%d\n", game.map.m[i][j], i, j);
-		// 			ft_log("Found match\n");
-		// 			r = i;
-		// 			c = j;
-		// 		}
-		// 		// ft_log("Sending1 %d %d\n", i, j);
-		// 		// printf("%d %d\n", i, j);
-		// 	}
-		// }
-		ft_log("Sending %d %d\n", r, c);
-		// printf("%d %d", r, c);
-		ft_putnbr(r);
-		write(1, " ", 1);
-		ft_putnbr(c);
-		write(1, "\n", 1);
-	}
+	while (gameon(game))
+		continue ;
 	return (0);
 }
