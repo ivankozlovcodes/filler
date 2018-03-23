@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 14:55:47 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:00:10 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:04:16 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_point	*get_critical_points(t_game game)
 	int			j;
 
 	points = intialize_critical_points(game.map.cols, game.map.rows);
-	log_critical_points(points);
 	distance = malloc(sizeof(int) * C_POINTS);
 	i = -1;
 	while (++i < game.map.rows)
