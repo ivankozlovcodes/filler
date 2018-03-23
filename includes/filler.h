@@ -62,5 +62,6 @@ void					die(char *msg);
 void					ft_log(char *msg, ...);
 void					log_matrix(t_matrix m);
 void					log_critical_points(t_point *p);
+void					log_fitness_matrix(int **m, int rows, int cols);
 
 #endif

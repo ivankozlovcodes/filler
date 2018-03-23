@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 16:00:38 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/22 22:02:00 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 15:08:56 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,20 @@ void	log_critical_points(t_point *p)
 		ft_log("[%d, %d]\n", p[i].x, p[i].y);
 		ft_log("%c: %d\t\t", PLAYER1, p[i].distances[0]);
 		ft_log("%c: %d\n", PLAYER2, p[i].distances[1]);
+	}
+}
+
+void	log_fitness_matrix(int **m, int rows, int cols)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < rows)
+	{
+		j = -1;
+		while (++j < cols)
+			ft_log("%d ", m[i][j]);
+		ft_log(NEW_LINE);
 	}
 }
