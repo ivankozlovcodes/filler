@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 21:56:46 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/22 21:37:37 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 15:40:30 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	whoami(t_game *game)
 	while (line[i] && line[i] != 'p')
 		i++;
 	if (line[i + 1] == '1')
-		game->player = 'o';
+		game->player = PLAYER1;
 	else
-		game->player = 'x';
+		game->player = PLAYER2;
+	game->opponent = game->player == PLAYER1 ? PLAYER2 : PLAYER1;
 	ft_strdel(&line);
 }
 
