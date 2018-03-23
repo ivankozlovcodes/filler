@@ -3,4 +3,7 @@
 .*
 !.gitignore
 !.gitmodule
-resources/
+obj/
+ikozlov.filler
+*.trace
+*logs*
