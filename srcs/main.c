@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 21:56:46 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/21 16:49:01 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/22 19:53:36 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,14 @@ void	whoami(t_game *game)
 	ft_strdel(&line);
 }
 
-// void	log_matrix(t_matrix m)
-// {
-// 	int		i;
-
-// 	i = -1;
-// 	ft_log("Size: r%d c%d\n", m.rows, m.cols);
-// 	while (++i < m.rows)
-// 		ft_log("%s\n", m.m[i]);
-// }
-
-void	log_matrix(char **m)
+void	log_matrix(t_matrix m)
 {
 	int		i;
 
 	i = -1;
-	while (m[++i])
-		ft_log("%s\n", m[i]);
+	ft_log("Size: r%d c%d\n", m.rows, m.cols);
+	while (++i < m.rows)
+		ft_log("%s\n", m.m[i]);
 }
 
 void	die(char *msg)
@@ -70,7 +61,7 @@ int		main()
 		get_data(game);
 		ft_log("Got data\n");
 		log_matrix(game->map);
-		log_matrix(game->piece);
+		log_matrix(game->piece.field);
 		// int	i;
 		// int	j;
 		int	r,c;

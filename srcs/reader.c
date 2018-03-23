@@ -6,81 +6,58 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:46:10 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/21 16:36:03 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/22 20:06:42 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 #include "get_next_line.h"
 
-void	get_map_size(t_game *game)
+void	get_matrix_size(t_matrix *mtx)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	ft_log("here\n");
 	if (!get_next_line(STDIN_FILENO, &line))
-		exit(0);
-	while (!ft_isdigit(line[i]))
+		die("get_matrix_size");
+	while (!ft_isdigit(*(line + i)))
 		i++;
-	game->rows = ft_atoi(&line[i]);
-	while (ft_isdigit(line[i]))
+	mtx->rows = ft_atoi(line + i);
+	while (ft_isdigit(*(line + i)))
 		i++;
-	game->cols = ft_atoi(&line[i + 1]);
-	free(line);
+	mtx->cols = ft_atoi(line + i);
+	ft_strdel(&line);
 }
 
-void	get_map(t_game *game)
+void	get_matrix(t_matrix *mtx, int skip)
 {
 	char	*line;
 	int		i;
 
-	i = 0;
-	game->map = (char**)malloc(sizeof(char*) * (game->rows + 1));
-	get_next_line(STDIN_FILENO, &line);
-	free(line);
-	i = 0;
-	while (i < game->rows)
+	i = -1;
+	ft_log("getting matrix %d %d\n", mtx->rows, mtx->cols);
+	while (++i < mtx->rows)
 	{
-		get_next_line(STDIN_FILENO, &line);
-		game->map[i] = ft_strdup(line + 4);
-		free(line);
-		i++;
+		if (get_next_line(STDIN_FILENO, &line) < 0)
+			die("get_matrix");
+		mtx->m[i] = ft_strdup(line + skip);
+		ft_log("Read line: |%s|\n", line);
+		ft_strdel(&line);
 	}
-	game->map[i] = NULL;
-}
-
-void	get_piece(t_game *game)
-{
-	char	*line;
-	int		i;
-	int		size;
-
-	i = 0;
-	get_next_line(STDIN_FILENO, &line);
-	while (line[i] && !ft_isdigit(line[i]))
-		i++;
-	if (line[i] == '0')
-		size = 0;
-	else
-		size = ft_atoi(&line[i]);
-	free(line);
-	game->piece = (char**)malloc(sizeof(char*) * (size + 1));
-	i = 0;
-	while (i < size)
-	{
-		get_next_line(STDIN_FILENO, &line);
-		game->piece[i] = ft_strdup(line);
-		free(line);
-		i++;
-	}
-	game->piece[i] = NULL;
+	ft_log("got matrix\n");
 }
 
 void	get_data(t_game *game)
 {
-	get_map_size(game);
-	get_map(game);
-	get_piece(game);
+	char	*line;
+
+	get_matrix_size(&game->map);
+	game->map.m = malloc(sizeof(char *) * game->map.rows);
+	get_next_line(STDIN_FILENO, &line);
+	ft_strdel(&line);
+	get_matrix(&game->map, 4);
+	get_matrix_size(&game->piece.field);
+	game->piece.field.m = malloc(sizeof(char *) * game->piece.field.rows);
+	get_matrix(&game->piece.field, 0);
 }
