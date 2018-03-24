@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 16:37:04 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 19:30:13 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,38 @@ void	send_move(int row, int column)
 	write(STDOUT_FILENO, NEW_LINE, 1);
 }
 
-int		**build_fitness_matrix(t_game *game, t_point p)
+void	build_fitness_matrix(t_game *game, t_point p)
 {
 	int		**res;
 	char	c;
 	int		i;
 	int		j;
 
-	res = malloc(sizeof(int *) * game->map.rows);
+	game->fitness.rows = game->map.rows + game->piece.field.rows * 2;
+	game->fitness.cols = game->map.cols + game->piece.field.cols * 2;
+	res = malloc(sizeof(int *) * game->fitness.rows);
 	i = -1;
-	while (++i < game->map.rows)
+	while (++i < game->fitness.rows)
 	{
 		j = -1;
-		res[i] = malloc(sizeof(int) * game->map.cols);
-		while (++j < game->map.cols)
+		res[i] = malloc(sizeof(int) * game->fitness.cols);
+		while (++j < game->fitness.cols)
 		{
-			c = ft_tolower(((int *)game->map.m[i])[j]);
+			if (i >= game->piece.field.rows && j >= game->piece.field.cols
+				&& i < game->piece.field.rows + game->map.rows && j < game->piece.field.cols + game->map.cols)
+				c = ft_tolower(((char **)game->map.m)\
+					[i - game->piece.field.rows][j - game->piece.field.cols]);
+			else
+				c = game->opponent;
 			if (c == game->player)
 				res[i][j] = 0;
 			else if (c == game->opponent)
 				res[i][j] = -FITNESS_MAX;
 			else
-				res[i][j] = FITNESS_MAX - ABS(p.x - j) - ABS(p.y - i);
+				res[i][j] = FITNESS_MAX - ABS(game->piece.field.cols + p.x - j) - ABS(game->piece.field.rows + p.y - i);
 		}
 	}
-	return (res);
+	game->fitness.m = (void **)res;
 }
 
 int		get_sum(int **fitness, t_piece p, int row, int col)
@@ -65,9 +72,9 @@ int		get_sum(int **fitness, t_piece p, int row, int col)
 		while (++j < p.field.cols)
 			if (((char **)p.field.m)[i][j] == '*')
 			{
-				if (fitness[row + i][col + j] == 0)
+				if (fitness[p.field.rows + row + i][p.field.cols + col + j] == 0)
 					hit_self++;
-				sum += fitness[row + i][col + j];
+				sum += fitness[p.field.rows + row + i][p.field.cols + col + j];
 			}
 	}
 	if (hit_self != 1)
@@ -75,7 +82,7 @@ int		get_sum(int **fitness, t_piece p, int row, int col)
 	return (sum);
 }
 
-int		*get_move(t_game *game, int **fitness)
+int		*get_move(t_game *game)
 {
 	int		i;
 	int		j;
@@ -91,16 +98,15 @@ int		*get_move(t_game *game, int **fitness)
 		j = -1;
 		while (++j < game->map.cols)
 		{
-			tmp = get_sum(fitness, game->piece, i, j);
-			ft_log("%d %d sum %d\n", i, j, tmp);
+			tmp = get_sum((int **)game->fitness.m, game->piece, i, j);
+			// ft_log("%d %d sum %d\n", i, j, tmp);
 			if (tmp > sum)
 			{
-				ft_log("Here\n");
 				res[0] = i;
 				res[1] = j;
 				sum = tmp;
 			}
-	}
+		}
 	}
 	return (res);
 }
@@ -109,25 +115,25 @@ int		gameon(t_game *game)
 {
 	t_point	*p;
 	t_point	critical;
-	int		**fitness;
 	int		*move;
+	int		i;
 
-	while (1)
-	{
-		get_data(game);
-		ft_log("Got data\n");
-		log_matrix(game->map);
-		log_matrix(game->piece.field);
-		p = get_critical_points(*game);
-		// log_critical_points(p);
-		critical = get_main_critical_point(p);
-		fitness = build_fitness_matrix(game, critical);
-		log_fitness_matrix(fitness, game->map.rows, game->map.cols);
-		move = get_move(game, fitness);
-		send_move(move[0], move[1]);
-		// free(all fitness)
-		free(move);
-		free(p);
-	}
-	return (0);
+	get_data(game);
+	p = get_critical_points(*game);
+	critical = get_main_critical_point(p);
+	build_fitness_matrix(game, critical);
+	ft_log("New trun\n");
+	log_matrix(game->map);
+	log_matrix(game->piece.field);
+	log_critical_points(p);
+	log_fitness_matrix((int **)game->fitness.m, game->fitness.rows, game->fitness.cols);
+	move = get_move(game);
+	send_move(move[0], move[1]);
+	i = -1;
+	while (++i < game->fitness.rows)
+		ft_memdel(&(game->fitness.m[i]));
+	free(game->fitness.m);
+	free(move);
+	free(p);
+	return (1);
 }

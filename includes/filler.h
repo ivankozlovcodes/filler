@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 16:40:44 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 19:31:35 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define C_POINTS 5
 # define FITNESS_MAX 100
 
-# define DEBUG 1
+# define DEBUG 0
 
 struct					s_matrix
 {
@@ -43,6 +43,7 @@ struct					s_game
 	char				opponent;
 	t_piece				piece;
 	t_matrix			map;
+	t_matrix			fitness;
 };
 typedef struct s_game	t_game;
 
