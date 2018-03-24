@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 16:00:38 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 15:08:56 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/23 19:33:37 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	ft_log(char *msg, ...)
 	va_list	args;
 	FILE	*log_file;
 
-	log_file = fopen("logs.txt", "a+");
-	va_start(args, msg);
-	vfprintf(log_file, msg, args);
-	va_end(args);
-	fclose(log_file);
+	if (DEBUG != 0)
+	{
+		log_file = fopen("logs.txt", "a+");
+		va_start(args, msg);
+		vfprintf(log_file, msg, args);
+		va_end(args);
+		fclose(log_file);
+	}
 }
 
 void	log_matrix(t_matrix m)
