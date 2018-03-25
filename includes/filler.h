@@ -24,6 +24,9 @@
 
 # define MTX_TOINT(m) (((int **)m))
 # define MTX_TOCHAR(m) (((char **)m))
+# define SETX(p, _x) ((p.x = _x))
+# define SETY(p, _y) ((p.y = _y))
+# define SETXY(p, _x, _y) ((SETX(p, _x) && SETY(p, _y)))
 
 struct					s_matrix
 {
