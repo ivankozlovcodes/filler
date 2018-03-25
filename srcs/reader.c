@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:46:10 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:27:55 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 14:00:53 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ void	whoami(t_game *game, int fd)
 	game->opponent = game->player == PLAYER1 ? PLAYER2 : PLAYER1;
 	ft_strdel(&line);
 }
+
+void	get_matrix_size(t_matrix *mtx, int fd)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	if (!get_next_line(STDIN_FILENO, &line))
+	if (!get_next_line(fd, &line))
 		die("get_matrix_size");
 	while (!ft_isdigit(*(line + i)))
 		i++;
@@ -46,7 +48,7 @@ void	whoami(t_game *game, int fd)
 	ft_strdel(&line);
 }
 
-void	get_matrix(t_matrix *mtx, int skip)
+void	get_matrix(t_matrix *mtx, int skip, int fd)
 {
 	char	*line;
 	int		i;
@@ -55,7 +57,7 @@ void	get_matrix(t_matrix *mtx, int skip)
 	ft_log("getting matrix %d %d\n", mtx->rows, mtx->cols);
 	while (++i < mtx->rows)
 	{
-		if (get_next_line(STDIN_FILENO, &line) < 0)
+		if (get_next_line(fd, &line) < 0)
 			die("get_matrix");
 		mtx->m[i] = ft_strdup(line + skip);
 		ft_log("Read line: |%s|\n", line);
@@ -64,16 +66,16 @@ void	get_matrix(t_matrix *mtx, int skip)
 	ft_log("got matrix\n");
 }
 
-void	get_data(t_game *game)
+void	get_data(t_game *game, int fd)
 {
 	char	*line;
 
-	get_matrix_size(&game->map);
+	get_matrix_size(&game->map, fd);
 	game->map.m = malloc(sizeof(char *) * game->map.rows);
-	get_next_line(STDIN_FILENO, &line);
+	get_next_line(fd, &line);
 	ft_strdel(&line);
-	get_matrix(&game->map, 4);
-	get_matrix_size(&game->piece);
+	get_matrix(&game->map, 4, fd);
+	get_matrix_size(&game->piece, fd);
 	game->piece.m = malloc(sizeof(char *) * game->piece.rows);
-	get_matrix(&game->piece, 0);
+	get_matrix(&game->piece, 0, fd);
 }

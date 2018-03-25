@@ -76,21 +76,23 @@ int		*get_move(t_game *game)
 	return (res);
 }
 
-int		gameon(t_game *game)
+int		gameon(t_game *game, int fd)
 {
 	int		*move;
 
-	get_data(game);
+	get_data(game, fd);
 	set_main_critical_point(game);
 	build_fitness_matrix(game);
 	ft_log("New trun\n");
-	log_matrix(game->map);
-	log_matrix(game->piece);
+	// log_matrix(game->map);
+	// log_matrix(game->piece);
 	log_fitness_matrix(MTX_TOINT(game->fitness.m),
 		game->fitness.rows, game->fitness.cols);
 	move = get_move(game);
 	send_move(move[0], move[1]);
-	free_matrix(&game->map);
+	if (game->old_map.m != NULL)
+		free_matrix(&game->old_map);
+	game->old_map = game->map;
 	free_matrix(&game->piece);
 	free_matrix(&game->fitness);
 	free(move);

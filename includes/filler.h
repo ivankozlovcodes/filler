@@ -20,7 +20,7 @@
 # define C_POINTS 5
 # define FITNESS_MAX 100
 
-# define DEBUG 0
+# define READ_FROM_FAKE 1
 
 # define MTX_TOINT(m) (((int **)m))
 # define MTX_TOCHAR(m) (((char **)m))
@@ -52,8 +52,9 @@ struct					s_game
 };
 typedef struct s_game	t_game;
 
-void					get_data(t_game *game);
-int						gameon(t_game *game);
+void					get_data(t_game *game, int fd);
+void					whoami(t_game *game, int fd);
+int						gameon(t_game *game, int fd);
 void					die(char *msg);
 
 void					ft_log(char *msg, ...);
