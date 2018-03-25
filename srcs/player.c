@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/25 14:36:47 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 14:58:41 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		*get_move(t_game *game)
 			tmp = get_sum(MTX_TOINT(game->fitness.m), game->piece, i, j);
 			if (tmp > sum)
 			{
-				res[0] = i;
-				res[1] = j;
+				res[0] = i - game->piece.rows;
+				res[1] = j - game->piece.cols;
 				sum = tmp;
 			}
 		}
