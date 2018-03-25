@@ -13,25 +13,7 @@
 #include "filler.h"
 #include "ft_printf.h"
 #include "get_next_line.h"
-#include <stdio.h>
-
-void	whoami(t_game *game)
-{
-	char	*line;
-	int		i;
-
-	if (!get_next_line(STDIN_FILENO, &line))
-		die("whoami");
-	i = 0;
-	while (line[i] && line[i] != 'p')
-		i++;
-	if (line[i + 1] == '1')
-		game->player = PLAYER1;
-	else
-		game->player = PLAYER2;
-	game->opponent = game->player == PLAYER1 ? PLAYER2 : PLAYER1;
-	ft_strdel(&line);
-}
+#include <fcntl.h>
 
 void	die(char *msg)
 {

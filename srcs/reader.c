@@ -13,7 +13,23 @@
 #include "filler.h"
 #include "get_next_line.h"
 
-void	get_matrix_size(t_matrix *mtx)
+void	whoami(t_game *game, int fd)
+{
+	char	*line;
+	int		i;
+
+	if (!get_next_line(fd, &line))
+		die("whoami");
+	i = 0;
+	while (line[i] && line[i] != 'p')
+		i++;
+	if (line[i + 1] == '1')
+		game->player = PLAYER1;
+	else
+		game->player = PLAYER2;
+	game->opponent = game->player == PLAYER1 ? PLAYER2 : PLAYER1;
+	ft_strdel(&line);
+}
 {
 	char	*line;
 	int		i;
