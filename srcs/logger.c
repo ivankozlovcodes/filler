@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 16:00:38 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 19:33:37 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 14:48:32 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	log_fitness_matrix(int **m, int rows, int cols)
 	{
 		j = -1;
 		while (++j < cols)
-			ft_log("%d ", m[i][j]);
+			ft_log("%3d ", m[i][j]);
 		ft_log(NEW_LINE);
 	}
 }
