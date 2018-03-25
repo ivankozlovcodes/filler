@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:54:16 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 14:36:47 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int		get_sum(int **fitness, t_matrix p, int row, int col)
 		while (++j < p.cols)
 			if (MTX_TOCHAR(p.m)[i][j] == '*')
 			{
-				if (fitness[p.rows + row + i][p.cols + col + j] == 0)
+				if (fitness[row + i][col + j] == 0)
 					hit_self++;
-				sum += fitness[p.rows + row + i][p.cols + col + j];
+				sum += fitness[row + i][col + j];
 			}
 	}
 	if (hit_self != 1)
@@ -59,10 +59,10 @@ int		*get_move(t_game *game)
 	i = -1;
 	res = (int *)ft_memalloc(2);
 	sum = 0;
-	while (++i < game->map.rows)
+	while (++i < game->fitness.rows - game->piece.rows)
 	{
 		j = -1;
-		while (++j < game->map.cols)
+		while (++j < game->fitness.cols - game->piece.cols)
 		{
 			tmp = get_sum(MTX_TOINT(game->fitness.m), game->piece, i, j);
 			if (tmp > sum)
