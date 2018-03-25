@@ -129,11 +129,9 @@ int		gameon(t_game *game)
 	log_fitness_matrix((int **)game->fitness.m, game->fitness.rows, game->fitness.cols);
 	move = get_move(game);
 	send_move(move[0], move[1]);
-	i = -1;
-	while (++i < game->fitness.rows)
-		ft_memdel(&(game->fitness.m[i]));
-	free(game->fitness.m);
+	free_matrix(&game->map);
+	free_matrix(&game->piece.field);
+	free_matrix(&game->fitness);
 	free(move);
-	free(p);
 	return (1);
 }

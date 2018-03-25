@@ -64,7 +64,6 @@ void					log_matrix(t_matrix m);
 void					log_critical_points(t_point *p);
 void					log_fitness_matrix(int **m, int rows, int cols);
 
-t_point					*get_critical_points(t_game game);
-t_point					get_main_critical_point(t_point *p);
+void					free_matrix(t_matrix *m);
 
 #endif
