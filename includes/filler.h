@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:54:34 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 15:01:38 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ struct					s_game
 	t_point				critical_point;
 	t_matrix			piece;
 	t_matrix			map;
+	t_matrix			old_map;
 	t_matrix			fitness;
 };
 typedef struct s_game	t_game;
