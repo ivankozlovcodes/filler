@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 14:55:47 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:32:33 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 15:02:35 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,45 +39,55 @@ t_point	*intialize_critical_points(int width, int height)
 	return (res);
 }
 
-void	set_distances(t_point *cp, int x, int y, char p)
+void	set_distance(t_point point, int x, int y, char p)
 {
-	int		i;
 	int		d;
 	int		player;
 
-	i = -1;
-	player = ft_tolower(p) == 'x';
-	while (++i < C_POINTS)
-	{
-		d = DISTANCE(x, y, cp[i].x, cp[i].y);
-		if (cp[i].distances[player] > d)
-			cp[i].distances[player] = d;
-	}
+	player = ft_tolower(p) == PLAYER2;
+	d = DISTANCE(x, y, point.x, point.y);
+	if (point.distances[player] > d)
+		point.distances[player] = d;
 }
 
-t_point	*get_critical_points(t_game *game)
+void	set_distances(t_point *cp, int x, int y, char p)
 {
-	t_point		*points;
-	char		**map;
-	int			i;
-	int			j;
+	int		i;
 
 	i = -1;
+	while (++i < C_POINTS)
+		set_distance(cp[i], x, y, p);
+}
+
+t_point	get_opponents_last_move(t_game *game)
+{
+	int			i;
+	int			j;
+	char		**map;
+	t_point		end;
+	t_point		start;
+
+	i = -1;
+	SETXY(end, -1, -1);
+	SETXY(start, -1, -1);
 	map = MTX_TOCHAR(game->map.m);
-	points = intialize_critical_points(game->map.cols, game->map.rows);
-	while (++i < game->map.rows)
+	while (++i < game->map.rows && game->old_map.m != NULL)
 	{
 		j = -1;
 		while (++j < game->map.cols)
-			if (ft_strchr("xo", ft_tolower(map[i][j])))
-				set_distances(points, j, i, map[i][j]);
+			if (map[i][j] != MTX_TOCHAR(game->old_map.m)[i][j]
+				&& ft_tolower(map[i][j]) == game->opponent)
+			{
+				start.x == -1 ? SETXY(start, j, i) : (void)0;
+				end.x < j || end.y < i ? SETXY(end, j, i) : (void)0;
+			}
 	}
-	return (points);
+	SETXY(start, (start.x + end.x) / 2, (start.y + end.y) / 2);
+	return (start);
 }
 
 void	set_main_critical_point(t_game *game)
 {
-	int			i;
 	int			player;
 	int			opponent;
 	int			distance;
@@ -87,16 +97,7 @@ void	set_main_critical_point(t_game *game)
 	opponent = game->opponent == PLAYER2;
 	distance = -1;
 	p = get_critical_points(game);
-	if (p[0].distances[player] > 0 && p[0].distances[opponent] != 0)
-		game->critical_point = p[0];
-	else
-	{
-		i = 0;
-		while (++i < C_POINTS)
-			if (p[i].distances[player] > p[i].distances[opponent]
-				&& distance < p[i].distances[player])
-				game->critical_point = p[i];
-	}
+	game->critical_point = get_opponents_last_move(game);
 	ft_log("Return critical point at pos %d, %d\n", game->critical_point.x,
 		game->critical_point.y);
 	free(p);
