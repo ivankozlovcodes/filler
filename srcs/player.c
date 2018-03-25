@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 19:30:13 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:23:51 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	send_move(int row, int column)
 	write(STDOUT_FILENO, NEW_LINE, 1);
 }
 
-void	build_fitness_matrix(t_game *game, t_point p)
+void	build_fitness_matrix(t_game *game)
 {
+	t_point	p;
 	int		**res;
 	char	c;
 	int		i;
@@ -32,6 +33,7 @@ void	build_fitness_matrix(t_game *game, t_point p)
 	game->fitness.rows = game->map.rows + game->piece.field.rows * 2;
 	game->fitness.cols = game->map.cols + game->piece.field.cols * 2;
 	res = malloc(sizeof(int *) * game->fitness.rows);
+	p = game->critical_point;
 	i = -1;
 	while (++i < game->fitness.rows)
 	{
@@ -99,7 +101,6 @@ int		*get_move(t_game *game)
 		while (++j < game->map.cols)
 		{
 			tmp = get_sum((int **)game->fitness.m, game->piece, i, j);
-			// ft_log("%d %d sum %d\n", i, j, tmp);
 			if (tmp > sum)
 			{
 				res[0] = i;
@@ -113,19 +114,14 @@ int		*get_move(t_game *game)
 
 int		gameon(t_game *game)
 {
-	t_point	*p;
-	t_point	critical;
 	int		*move;
-	int		i;
 
 	get_data(game);
-	p = get_critical_points(*game);
-	critical = get_main_critical_point(p);
-	build_fitness_matrix(game, critical);
+	set_main_critical_point(game);
+	build_fitness_matrix(game);
 	ft_log("New trun\n");
 	log_matrix(game->map);
 	log_matrix(game->piece.field);
-	log_critical_points(p);
 	log_fitness_matrix((int **)game->fitness.m, game->fitness.rows, game->fitness.cols);
 	move = get_move(game);
 	send_move(move[0], move[1]);

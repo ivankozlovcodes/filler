@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 19:31:35 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:23:21 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,6 @@ struct					s_piece
 };
 typedef struct s_piece	t_piece;
 
-struct					s_game
-{
-	char				player;
-	char				opponent;
-	t_piece				piece;
-	t_matrix			map;
-	t_matrix			fitness;
-};
-typedef struct s_game	t_game;
-
 struct					s_point
 {
 	int					x;
@@ -54,6 +44,17 @@ struct					s_point
 	int					distances[2];
 };
 typedef struct s_point	t_point;
+
+struct					s_game
+{
+	char				player;
+	char				opponent;
+	t_point				critical_point;
+	t_piece				piece;
+	t_matrix			map;
+	t_matrix			fitness;
+};
+typedef struct s_game	t_game;
 
 void					get_data(t_game *game);
 int						gameon(t_game *game);
@@ -63,6 +64,8 @@ void					ft_log(char *msg, ...);
 void					log_matrix(t_matrix m);
 void					log_critical_points(t_point *p);
 void					log_fitness_matrix(int **m, int rows, int cols);
+
+void					set_main_critical_point(t_game *game);
 
 void					free_matrix(t_matrix *m);
 

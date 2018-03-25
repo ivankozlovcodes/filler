@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 14:55:47 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/23 16:39:14 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:17:28 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,7 @@ void	set_distances(t_point *cp, int x, int y, char p)
 	}
 }
 
-t_point	get_main_critical_point(t_point *p)
-{
-	return (p[0]);
-}
-
-t_point	*get_critical_points(t_game game)
+t_point	*get_critical_points(t_game *game)
 {
 	t_point		*points;
 	char		**map;
@@ -68,14 +63,41 @@ t_point	*get_critical_points(t_game game)
 	int			j;
 
 	i = -1;
-	map = (char **)game.map.m;
-	points = intialize_critical_points(game.map.cols, game.map.rows);
-	while (++i < game.map.rows)
+	map = (char **)game->map.m;
+	points = intialize_critical_points(game->map.cols, game->map.rows);
+	while (++i < game->map.rows)
 	{
 		j = -1;
-		while (++j < game.map.cols)
+		while (++j < game->map.cols)
 			if (ft_strchr("xo", ft_tolower(map[i][j])))
 				set_distances(points, j, i, map[i][j]);
 	}
 	return (points);
+}
+
+void	set_main_critical_point(t_game *game)
+{
+	int			i;
+	int			player;
+	int			opponent;
+	int			distance;
+	t_point		*p;
+
+	player = game->player == PLAYER2;
+	opponent = game->opponent == PLAYER2;
+	distance = -1;
+	p = get_critical_points(game);
+	if (p[0].distances[player] > 0 && p[0].distances[opponent] != 0)
+		game->critical_point = p[0];
+	else
+	{
+		i = 0;
+		while (++i < C_POINTS)
+			if (p[i].distances[player] > p[i].distances[opponent]
+				&& distance < p[i].distances[player])
+				game->critical_point = p[i];
+	}
+	ft_log("Return critical point at pos %d, %d\n", game->critical_point.x,
+		game->critical_point.y);
+	free(p);
 }
