@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:34:01 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:54:16 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,6 @@ void	send_move(int row, int column)
 	write(STDOUT_FILENO, SPACE, 1);
 	ft_putnbr(column);
 	write(STDOUT_FILENO, NEW_LINE, 1);
-}
-
-void	build_fitness_matrix(t_game *game)
-{
-	t_point	p;
-	int		**res;
-	char	c;
-	int		i;
-	int		j;
-
-	game->fitness.rows = game->map.rows + game->piece.rows * 2;
-	game->fitness.cols = game->map.cols + game->piece.cols * 2;
-	res = malloc(sizeof(int *) * game->fitness.rows);
-	p = game->critical_point;
-	i = -1;
-	while (++i < game->fitness.rows)
-	{
-		j = -1;
-		res[i] = malloc(sizeof(int) * game->fitness.cols);
-		while (++j < game->fitness.cols)
-		{
-			if (i >= game->piece.rows && j >= game->piece.cols
-				&& i < game->piece.rows + game->map.rows && j < game->piece.cols + game->map.cols)
-				c = ft_tolower(MTX_TOCHAR(game->map.m)\
-					[i - game->piece.rows][j - game->piece.cols]);
-			else
-				c = game->opponent;
-			if (c == game->player)
-				res[i][j] = 0;
-			else if (c == game->opponent)
-				res[i][j] = -FITNESS_MAX;
-			else
-				res[i][j] = FITNESS_MAX - ABS(game->piece.cols + p.x - j) - ABS(game->piece.rows + p.y - i);
-		}
-	}
-	game->fitness.m = (void **)res;
 }
 
 int		get_sum(int **fitness, t_matrix p, int row, int col)

@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:33:04 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:54:34 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void					log_critical_points(t_point *p);
 void					log_fitness_matrix(int **m, int rows, int cols);
 
 void					set_main_critical_point(t_game *game);
+
+void					build_fitness_matrix(t_game *game);
 
 void					free_matrix(t_matrix *m);
 
