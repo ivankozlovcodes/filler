@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:23:51 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:34:01 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	build_fitness_matrix(t_game *game)
 	int		i;
 	int		j;
 
-	game->fitness.rows = game->map.rows + game->piece.field.rows * 2;
-	game->fitness.cols = game->map.cols + game->piece.field.cols * 2;
+	game->fitness.rows = game->map.rows + game->piece.rows * 2;
+	game->fitness.cols = game->map.cols + game->piece.cols * 2;
 	res = malloc(sizeof(int *) * game->fitness.rows);
 	p = game->critical_point;
 	i = -1;
@@ -41,10 +41,10 @@ void	build_fitness_matrix(t_game *game)
 		res[i] = malloc(sizeof(int) * game->fitness.cols);
 		while (++j < game->fitness.cols)
 		{
-			if (i >= game->piece.field.rows && j >= game->piece.field.cols
-				&& i < game->piece.field.rows + game->map.rows && j < game->piece.field.cols + game->map.cols)
-				c = ft_tolower(((char **)game->map.m)\
-					[i - game->piece.field.rows][j - game->piece.field.cols]);
+			if (i >= game->piece.rows && j >= game->piece.cols
+				&& i < game->piece.rows + game->map.rows && j < game->piece.cols + game->map.cols)
+				c = ft_tolower(MTX_TOCHAR(game->map.m)\
+					[i - game->piece.rows][j - game->piece.cols]);
 			else
 				c = game->opponent;
 			if (c == game->player)
@@ -52,13 +52,13 @@ void	build_fitness_matrix(t_game *game)
 			else if (c == game->opponent)
 				res[i][j] = -FITNESS_MAX;
 			else
-				res[i][j] = FITNESS_MAX - ABS(game->piece.field.cols + p.x - j) - ABS(game->piece.field.rows + p.y - i);
+				res[i][j] = FITNESS_MAX - ABS(game->piece.cols + p.x - j) - ABS(game->piece.rows + p.y - i);
 		}
 	}
 	game->fitness.m = (void **)res;
 }
 
-int		get_sum(int **fitness, t_piece p, int row, int col)
+int		get_sum(int **fitness, t_matrix p, int row, int col)
 {
 	int		i;
 	int		j;
@@ -68,15 +68,15 @@ int		get_sum(int **fitness, t_piece p, int row, int col)
 	i = -1;
 	sum = 0;
 	hit_self = 0;
-	while (++i < p.field.rows)
+	while (++i < p.rows)
 	{
 		j = -1;
-		while (++j < p.field.cols)
-			if (((char **)p.field.m)[i][j] == '*')
+		while (++j < p.cols)
+			if (MTX_TOCHAR(p.m)[i][j] == '*')
 			{
-				if (fitness[p.field.rows + row + i][p.field.cols + col + j] == 0)
+				if (fitness[p.rows + row + i][p.cols + col + j] == 0)
 					hit_self++;
-				sum += fitness[p.field.rows + row + i][p.field.cols + col + j];
+				sum += fitness[p.rows + row + i][p.cols + col + j];
 			}
 	}
 	if (hit_self != 1)
@@ -100,7 +100,7 @@ int		*get_move(t_game *game)
 		j = -1;
 		while (++j < game->map.cols)
 		{
-			tmp = get_sum((int **)game->fitness.m, game->piece, i, j);
+			tmp = get_sum(MTX_TOINT(game->fitness.m), game->piece, i, j);
 			if (tmp > sum)
 			{
 				res[0] = i;
@@ -121,12 +121,13 @@ int		gameon(t_game *game)
 	build_fitness_matrix(game);
 	ft_log("New trun\n");
 	log_matrix(game->map);
-	log_matrix(game->piece.field);
-	log_fitness_matrix((int **)game->fitness.m, game->fitness.rows, game->fitness.cols);
+	log_matrix(game->piece);
+	log_fitness_matrix(MTX_TOINT(game->fitness.m),
+		game->fitness.rows, game->fitness.cols);
 	move = get_move(game);
 	send_move(move[0], move[1]);
 	free_matrix(&game->map);
-	free_matrix(&game->piece.field);
+	free_matrix(&game->piece);
 	free_matrix(&game->fitness);
 	free(move);
 	return (1);

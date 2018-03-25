@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:46:10 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/22 20:06:42 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:27:55 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	get_data(t_game *game)
 	get_next_line(STDIN_FILENO, &line);
 	ft_strdel(&line);
 	get_matrix(&game->map, 4);
-	get_matrix_size(&game->piece.field);
-	game->piece.field.m = malloc(sizeof(char *) * game->piece.field.rows);
-	get_matrix(&game->piece.field, 0);
+	get_matrix_size(&game->piece);
+	game->piece.m = malloc(sizeof(char *) * game->piece.rows);
+	get_matrix(&game->piece, 0);
 }

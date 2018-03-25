@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:23:21 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:33:04 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define DEBUG 0
 
+# define MTX_TOINT(m) (((int **)m))
+# define MTX_TOCHAR(m) (((char **)m))
+
 struct					s_matrix
 {
 	void				**m;
@@ -29,13 +32,6 @@ struct					s_matrix
 	int					cols;
 };
 typedef struct s_matrix	t_matrix;
-
-struct					s_piece
-{
-	t_matrix			field;
-	int					weight;
-};
-typedef struct s_piece	t_piece;
 
 struct					s_point
 {
@@ -50,7 +46,7 @@ struct					s_game
 	char				player;
 	char				opponent;
 	t_point				critical_point;
-	t_piece				piece;
+	t_matrix			piece;
 	t_matrix			map;
 	t_matrix			fitness;
 };

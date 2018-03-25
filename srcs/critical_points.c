@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 14:55:47 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:17:28 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/24 20:32:33 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_point	*get_critical_points(t_game *game)
 	int			j;
 
 	i = -1;
-	map = (char **)game->map.m;
+	map = MTX_TOCHAR(game->map.m);
 	points = intialize_critical_points(game->map.cols, game->map.rows);
 	while (++i < game->map.rows)
 	{
