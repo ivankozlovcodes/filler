@@ -6,7 +6,7 @@
 #    By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 15:52:16 by ikozlov           #+#    #+#              #
-#    Updated: 2018/03/23 15:10:17 by ikozlov          ###   ########.fr        #
+#    Updated: 2018/03/24 20:23:32 by ikozlov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -g
 
 # src & obj files
-SRC_FILES = main.c reader.c logger.c player.c critical_points.c
+SRC_FILES = main.c reader.c logger.c player.c critical_points.c matrix.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
