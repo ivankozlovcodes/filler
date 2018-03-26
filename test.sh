@@ -1,1 +1,0 @@
-./resources/filler_vm -f resources/maps/map00 -p1 ./ikozlov.filler
