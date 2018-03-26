@@ -20,7 +20,8 @@
 # define C_POINTS 5
 # define FITNESS_MAX 100
 
-# define READ_FROM_FAKE 1
+# define DEBUG 0
+# define READ_FROM_FAKE 0
 
 # define MTX_TOINT(m) (((int **)m))
 # define MTX_TOCHAR(m) (((char **)m))
