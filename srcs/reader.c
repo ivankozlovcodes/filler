@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:46:10 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/25 14:00:53 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 18:15:46 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	get_matrix(t_matrix *mtx, int skip, int fd)
 		ft_log("Read line: |%s|\n", line);
 		ft_strdel(&line);
 	}
-	ft_log("got matrix\n");
 }
 
 void	get_data(t_game *game, int fd)
