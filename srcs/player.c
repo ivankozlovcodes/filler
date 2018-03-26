@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/25 14:58:41 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/25 18:15:29 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int		gameon(t_game *game, int fd)
 	set_main_critical_point(game);
 	build_fitness_matrix(game);
 	ft_log("New trun\n");
-	// log_matrix(game->map);
-	// log_matrix(game->piece);
+	log_matrix(game->map);
+	log_matrix(game->piece);
 	log_fitness_matrix(MTX_TOINT(game->fitness.m),
 		game->fitness.rows, game->fitness.cols);
 	move = get_move(game);
