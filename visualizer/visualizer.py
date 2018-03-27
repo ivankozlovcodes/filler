@@ -127,24 +127,24 @@ class Game:
 
 	def routine(self):
 		line = ''
-		if not self.finished:
-			while '<got' not in line:
-				line = read_line()
-				if 'error' in line:
-					self.finished = True
-					return self.stop()
-			if '<got (O):' in line:
+		if self.finished:
+			return
+		while 'Plateau' not in line:
+			line = read_line()
+			if 'error' in line or 'fin' in line:
+				self.finished = True
+				return self.stop()
+			elif '<got (O):' in line:
 				self.player1.score += 1
-			else:
+			elif '<got (X):' in line:
 				self.player2.score += 1
-			read_line()
-			read_line()
-			self.label1.config(text=self.player1.generate_label_text())
-			self.label2.config(text=self.player2.generate_label_text())
-			self.plateau.read()
-			self.draw()
-			if self.running:
-				self.root.after(0, self.routine)
+		read_line()
+		self.label1.config(text=self.player1.generate_label_text())
+		self.label2.config(text=self.player2.generate_label_text())
+		self.plateau.read()
+		self.draw()
+		if self.running:
+			self.root.after(0, self.routine)
 
 	def toggle(self, event):
 		if self.running:
