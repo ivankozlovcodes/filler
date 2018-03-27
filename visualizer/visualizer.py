@@ -131,7 +131,7 @@ class Game:
 			return
 		while 'Plateau' not in line:
 			line = read_line()
-			if 'error' in line or 'fin' in line:
+			if 'An error' in line or 'fin' in line:
 				self.finished = True
 				return self.stop()
 			elif '<got (O):' in line:
