@@ -15,12 +15,14 @@ run_map() {
 	for i in 0 1 2
 	do
 		"$res_dir"/filler_vm -f "$1" -p1 "$2" -p2 "$3" > out
-		error=$(cat out | grep error)
+		error=$(cat out | grep "An error occured. aborting...")
 		winner=$(cat filler.trace | grep won)
 		echo "$winner"
 		if [ ! -z "$error" ];
 		then
+			mv logs.txt error_logs.txt
 			mv out error
+			exit
 		fi
 	done
 }
