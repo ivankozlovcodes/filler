@@ -3,7 +3,7 @@
 import sys
 from tkinter import *
 
-file = open("logs.txt", "w")
+file = open("vlogs.txt", "w")
 debug = True
 box_w = 12
 box_h = 12
