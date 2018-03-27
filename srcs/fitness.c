@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 20:53:24 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/24 20:55:59 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/26 18:42:49 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_fitness(int i, int j, t_game *game)
 		c = ft_tolower(MTX_TOCHAR(game->map.m)\
 			[i - game->piece.rows][j - game->piece.cols]);
 	else
-		c = game->opponent;
+		return (-1);
 	if (c == game->player)
 		res = 0;
 	else if (c == game->opponent)

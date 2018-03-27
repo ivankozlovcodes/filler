@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:19:06 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/25 18:15:29 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/26 18:48:46 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		get_sum(int **fitness, t_matrix p, int row, int col)
 			{
 				if (fitness[row + i][col + j] == 0)
 					hit_self++;
+				else if (fitness[row + i][col + j] == -1)
+					return (0);
 				sum += fitness[row + i][col + j];
 			}
 	}
@@ -86,8 +88,8 @@ int		gameon(t_game *game, int fd)
 	ft_log("New trun\n");
 	log_matrix(game->map);
 	log_matrix(game->piece);
-	log_fitness_matrix(MTX_TOINT(game->fitness.m),
-		game->fitness.rows, game->fitness.cols);
+	// log_fitness_matrix(MTX_TOINT(game->fitness.m),
+		// game->fitness.rows, game->fitness.cols);
 	move = get_move(game);
 	send_move(move[0], move[1]);
 	if (game->old_map.m != NULL)
