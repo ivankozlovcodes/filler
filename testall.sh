@@ -20,7 +20,7 @@ run_map() {
 		echo "$winner"
 		if [ ! -z "$error" ];
 		then
-			mv logs.txt error_logs.txt
+			# mv logs.txt error_logs.txt
 			mv out error
 			exit
 		fi
