@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 20:53:24 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/26 18:42:49 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/26 21:09:28 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,26 @@ int		check_if_inmap(int i, int j, t_game *game)
 	return (i >= game->piece.rows && j >= game->piece.cols
 				&& i < game->piece.rows + game->map.rows
 				&& j < game->piece.cols + game->map.cols);
+}
+
+int		get_distance(int i, int j, t_list *enemy)
+{
+	int		d;
+	int		res;
+	t_point	tmp;
+
+	res = -1;
+	while (enemy)
+	{
+		tmp = *(t_point *)enemy->content;
+		d = DISTANCE(j, i, tmp.x, tmp.y);
+		if (res < FITNESS_MAX - d)
+			res = FITNESS_MAX - d;
+		if (res >= FITNESS_MAX - 1)
+			break ;
+		enemy = enemy->next;
+	}
+	return (res);
 }
 
 int		get_fitness(int i, int j, t_game *game)
@@ -37,7 +57,7 @@ int		get_fitness(int i, int j, t_game *game)
 		res = -FITNESS_MAX;
 	else
 		res = FITNESS_MAX - ABS(game->piece.cols + p.x - j)
-			- ABS(game->piece.rows + p.y - i);
+			- ABS(game->piece.rows + p.y - i) + get_distance(i, j, game->enemy);
 	return (res);
 }
 

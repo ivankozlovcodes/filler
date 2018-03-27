@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/26 18:50:23 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/03/26 21:10:05 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct					s_game
 	char				player;
 	char				opponent;
 	t_point				critical_point;
+	t_list				*enemy;
 	t_matrix			piece;
 	t_matrix			map;
 	t_matrix			old_map;

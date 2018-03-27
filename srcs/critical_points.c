@@ -34,6 +34,33 @@ void	set_distances(t_point *cp, int x, int y, char p)
 		set_distance(cp[i], x, y, p);
 }
 
+t_list	*get_enemy(t_game *game)
+{
+	int			i;
+	int			j;
+	char		**map;
+	t_point		tmp;
+	t_list		*res;
+
+	res = NULL;
+	map = MTX_TOCHAR(game->map.m);
+	i = -1;
+	while (++i < game->map.rows)
+	{
+		j = -1;
+		while (++j < game->map.cols)
+			if (ft_tolower(map[i][j]) == game->opponent)
+			{
+				SETXY(tmp, j, i);
+				if (res == NULL)
+					res = ft_lstnew(&tmp, sizeof(tmp));
+				else
+					ft_lstadd(&res, ft_lstnew(&tmp, sizeof(tmp)));
+			}
+	}
+	return (res);
+}
+
 t_point	get_opponents_last_move(t_game *game)
 {
 	int			i;
@@ -71,6 +98,7 @@ void	set_main_critical_point(t_game *game)
 	opponent = game->opponent == PLAYER2;
 	distance = -1;
 	game->critical_point = get_opponents_last_move(game);
+	game->enemy = get_enemy(game);
 	if (game->critical_point.x < 0 || game->critical_point.y < 0)
 		SETXY(game->critical_point, game->map.cols / 2, game->map.rows / 2);
 	ft_log("Return critical point at pos %d, %d\n", game->critical_point.x,
