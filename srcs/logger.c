@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 16:00:38 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/03/25 14:48:32 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 18:14:47 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	log_critical_points(t_point *p)
 	while (++i < C_POINTS)
 	{
 		ft_log("[%d, %d]\n", p[i].x, p[i].y);
-		ft_log("%c: %d\t\t", PLAYER1, p[i].distances[0]);
-		ft_log("%c: %d\n", PLAYER2, p[i].distances[1]);
 	}
 }
 

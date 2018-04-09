@@ -6,7 +6,7 @@
 #    By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 15:52:16 by ikozlov           #+#    #+#              #
-#    Updated: 2018/03/24 20:55:45 by ikozlov          ###   ########.fr        #
+#    Updated: 2018/04/08 18:15:36 by ikozlov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ OBJ_DIR = obj/
 SRC_DIR = srcs/
 INC_DIR = includes/
 LIBFT_DIR = libft/
-PRINTF_DIR = ft_printf/
-GNL_DIR = get_next_line/
 
 # complier
 CFLAGS = -Wall -Wextra -Werror
@@ -35,15 +33,13 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 LIBFT = ft
 PRINTF = ftprintf
 
-INCLUDES = -I includes/ -I $(LIBFT_DIR)includes/ -I $(PRINTF_DIR)includes -I $(GNL_DIR)
+INCLUDES = -I includes/ -I $(LIBFT_DIR)includes/
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(LIBFT_DIR)
-	@$(MAKE) -C $(PRINTF_DIR)
-	@$(MAKE) -C $(GNL_DIR)
-	@gcc $(OBJ) $(GNL_DIR)/get_next_line.o -o $(NAME) -L $(LIBFT_DIR) -l $(LIBFT) -L $(PRINTF_DIR) -l $(PRINTF)
+	@gcc $(OBJ) -o $(NAME) -L $(LIBFT_DIR) -l $(LIBFT)
 	@echo "\`filler\` Player created"
 
 $(OBJ): $(SRC)
@@ -53,15 +49,11 @@ $(OBJ): $(SRC)
 
 clean:
 	@make -C $(LIBFT_DIR) clean
-	@make -C $(GNL_DIR) clean
-	@make -C $(PRINTF_DIR) clean
 	@/bin/rm -rf $(OBJ_DIR)
 	@echo "\`filler\` [INFO] Object folder removed"
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
-	@make -C $(GNL_DIR) fclean
-	@make -C $(PRINTF_DIR) fclean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(TEST)
 	@echo "\`filler\` [INFO] Executable removed"
