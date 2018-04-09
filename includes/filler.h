@@ -6,7 +6,7 @@
 /*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/04/08 18:16:44 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 18:20:45 by ikozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define C_POINTS 5
 # define FITNESS_MAX 1000
 
-# define DEBUG 1
+# define DEBUG 0
 # define READ_FROM_FAKE 0
 
 # define MTX_TOINT(m) (((int **)m))
