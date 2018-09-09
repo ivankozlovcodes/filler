@@ -6,7 +6,7 @@
 * [What is it about?](#what-is-it-about)
 * [Usage](#usage)
 * [Examples](#examples)
-* [Authors](#authors)
+* [Author](#author)
 * [License](#license)
 
 ## What is it about?
@@ -53,7 +53,7 @@ In order to see it working simply pipe the virtual machine output to visualizer.
 ```sh
     ./filler_vm -f maps/map01 -p1 ../ikozlov.filler -p2 players/abanlin.filler | python3 ../visualizer/visualizer.py
 ```
-<img src="[gif]"></img>
+<img src="resources/usage.gif"></img>
 
 ## Author
 This project was developed by Ivan Kozlov [@ivankozlov95][me].
