@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filler.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikozlov <ikozlov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ivankozlov <ivankozlov@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:59:15 by ikozlov           #+#    #+#             */
-/*   Updated: 2018/04/08 18:20:45 by ikozlov          ###   ########.fr       */
+/*   Updated: 2018/09/09 18:02:25 by ivankozlov       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 
 # define MTX_TOINT(m) (((int **)m))
 # define MTX_TOCHAR(m) (((char **)m))
-# define SETX(p, _x) ((p.x = _x))
-# define SETY(p, _y) ((p.y = _y))
-# define SETXY(p, _x, _y) ((SETX(p, _x) && SETY(p, _y)))
 
 struct					s_matrix
 {
